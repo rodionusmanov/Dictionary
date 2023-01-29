@@ -1,17 +1,18 @@
-package com.example.dictionary
+package com.example.dictionary.view.main
 
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.dictionary.DataModel
+import com.example.dictionary.R
+import com.example.dictionary.model.data.AppState
 import com.example.dictionary.databinding.ActivityMainBinding
-import com.example.dictionary.interfaces.Presenter
-import com.example.dictionary.interfaces.View
-import com.example.dictionary.presenter.MainPresenterImpl
-import com.example.dictionary.view.BaseActivity
-import com.example.dictionary.view.MainAdapter
-import com.example.dictionary.view.SearchDialogFragment
+import com.example.dictionary.presenter.Presenter
+import com.example.dictionary.view.base.View
+import com.example.dictionary.view.base.BaseActivity
+import com.example.dictionary.view.main.adapter.MainAdapter
 
 class MainActivity : BaseActivity<AppState>() {
 

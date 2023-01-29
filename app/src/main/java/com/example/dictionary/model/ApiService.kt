@@ -1,4 +1,4 @@
-package com.example.dictionary.interfaces
+package com.example.dictionary.model
 
 import com.example.dictionary.DataModel
 import io.reactivex.rxjava3.core.Observable

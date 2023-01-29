@@ -1,8 +1,7 @@
-package com.example.dictionary.repository
+package com.example.dictionary.model.repository
 
 import com.example.dictionary.DataModel
-import com.example.dictionary.interfaces.DataSource
-import com.example.dictionary.interfaces.Repository
+import com.example.dictionary.model.DataSource
 import io.reactivex.rxjava3.core.Observable
 
 class RepositoryImplementation(private val dataSource: DataSource<List<DataModel>>) :

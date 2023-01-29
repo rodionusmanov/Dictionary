@@ -1,11 +1,11 @@
-package com.example.dictionary.presenter
+package com.example.dictionary.view.main
 
-import com.example.dictionary.AppState
-import com.example.dictionary.interfaces.Presenter
-import com.example.dictionary.interfaces.View
-import com.example.dictionary.repository.DataSourceLocal
-import com.example.dictionary.repository.DataSourceRemote
-import com.example.dictionary.repository.RepositoryImplementation
+import com.example.dictionary.model.data.AppState
+import com.example.dictionary.view.base.View
+import com.example.dictionary.model.DataSourceLocal
+import com.example.dictionary.model.DataSourceRemote
+import com.example.dictionary.model.repository.RepositoryImplementation
+import com.example.dictionary.presenter.Presenter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableObserver

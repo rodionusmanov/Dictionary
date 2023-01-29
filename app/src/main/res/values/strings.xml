@@ -7,4 +7,5 @@
     <string name="error_textview_stub">Error</string>
     <string name="reload_button">Reload</string>
     <string name="undefined_error">Undefined error</string>
+    <string name="devider_line">Devider line</string>
 </resources>

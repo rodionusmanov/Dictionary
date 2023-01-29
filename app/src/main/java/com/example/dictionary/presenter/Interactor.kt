@@ -1,4 +1,4 @@
-package com.example.dictionary.interfaces
+package com.example.dictionary.presenter
 
 import io.reactivex.rxjava3.core.Observable
 

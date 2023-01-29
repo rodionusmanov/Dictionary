@@ -1,18 +1,21 @@
-package com.example.dictionary.repository
+package com.example.dictionary.model
 
 import com.example.dictionary.DataModel
-import com.example.dictionary.interfaces.DataSource
+import com.example.dictionary.model.retrofit.RetrofitImplementation
+import com.example.dictionary.model.room.RoomDataBaseImplementation
 import io.reactivex.rxjava3.core.Observable
 
 class DataSourceRemote (private val remoteProvider: RetrofitImplementation =
-                            RetrofitImplementation()) :
+                            RetrofitImplementation()
+) :
     DataSource<List<DataModel>> {
     override fun getData(word: String): Observable<List<DataModel>> =
         remoteProvider.getData(word)
 }
 
 class DataSourceLocal(private val remoteProvider: RoomDataBaseImplementation =
-                          RoomDataBaseImplementation()) :
+                          RoomDataBaseImplementation()
+) :
     DataSource<List<DataModel>> {
     override fun getData(word: String): Observable<List<DataModel>> =
         remoteProvider.getData(word)

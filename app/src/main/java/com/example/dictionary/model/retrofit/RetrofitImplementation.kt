@@ -1,8 +1,9 @@
-package com.example.dictionary.repository
+package com.example.dictionary.model.retrofit
 
 import com.example.dictionary.DataModel
-import com.example.dictionary.interfaces.ApiService
-import com.example.dictionary.interfaces.DataSource
+import com.example.dictionary.model.ApiService
+import com.example.dictionary.model.DataSource
+import com.example.dictionary.model.BaseInterceptor
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

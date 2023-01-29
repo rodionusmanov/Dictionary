@@ -1,4 +1,4 @@
-package com.example.dictionary.view
+package com.example.dictionary.view.main
 
 import android.os.Bundle
 import android.text.Editable
