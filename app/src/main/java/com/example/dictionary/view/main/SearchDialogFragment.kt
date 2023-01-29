@@ -6,10 +6,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import com.example.dictionary.databinding.SearchDialogBinding
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class SearchDialogFragment : BottomSheetDialogFragment() {
+class SearchDialogFragment : DialogFragment() {
     private var _binding: SearchDialogBinding? = null
     private val binding get() = _binding!!
     private var onSearchClickListener: OnSearchClickListener? = null
@@ -19,8 +19,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
             Int
         ) {
             if (binding.searchDialogInputText.text != null &&
-                !binding.searchDialogInputText.text.toString()
-                    .isEmpty()
+                binding.searchDialogInputText.text.toString().isNotEmpty()
             ) {
                 binding.searchChip.isEnabled = true
                 binding.clearTextImageview.visibility = View.VISIBLE
@@ -57,6 +56,14 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        val currentDialog = dialog
+        if (currentDialog != null) {
+            currentDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.searchChip.setOnClickListener(onSearchButtonClickListener)
@@ -85,5 +92,4 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
             return SearchDialogFragment()
         }
     }
-
 }

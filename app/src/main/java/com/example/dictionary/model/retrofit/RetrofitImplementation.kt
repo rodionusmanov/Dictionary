@@ -1,6 +1,6 @@
 package com.example.dictionary.model.retrofit
 
-import com.example.dictionary.DataModel
+import com.example.dictionary.model.data.DataModel
 import com.example.dictionary.model.ApiService
 import com.example.dictionary.model.DataSource
 import com.example.dictionary.model.BaseInterceptor

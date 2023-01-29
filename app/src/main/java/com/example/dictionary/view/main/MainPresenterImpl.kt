@@ -17,7 +17,7 @@ class MainPresenterImpl<T : AppState, V : View>(
         RepositoryImplementation(DataSourceRemote()),
         RepositoryImplementation(DataSourceLocal())
     ),
-    protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
 ) : Presenter<T, V> {
 

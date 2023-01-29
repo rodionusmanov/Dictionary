@@ -1,6 +1,6 @@
 package com.example.dictionary.model
 
-import com.example.dictionary.DataModel
+import com.example.dictionary.model.data.DataModel
 import com.example.dictionary.model.retrofit.RetrofitImplementation
 import com.example.dictionary.model.room.RoomDataBaseImplementation
 import io.reactivex.rxjava3.core.Observable

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dictionary.DataModel
+import com.example.dictionary.model.data.DataModel
 import com.example.dictionary.R
 
 class MainAdapter(

@@ -8,4 +8,5 @@
     <string name="reload_button">Reload</string>
     <string name="undefined_error">Undefined error</string>
     <string name="devider_line">Devider line</string>
+    <string name="clear_field">Clear field</string>
 </resources>

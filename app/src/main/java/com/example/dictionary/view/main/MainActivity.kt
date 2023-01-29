@@ -5,7 +5,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.dictionary.DataModel
+import com.example.dictionary.model.data.DataModel
 import com.example.dictionary.R
 import com.example.dictionary.model.data.AppState
 import com.example.dictionary.databinding.ActivityMainBinding
