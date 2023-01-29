@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="cardview_corner_radius">20dp</dimen>
+    <dimen name="Header_text_size">32sp</dimen>
+    <dimen name="Description_text_size">24sp</dimen>
+    <dimen name="Thin_line_size">1dp</dimen>
+    <dimen name="padding_description">8dp</dimen>
+</resources>
