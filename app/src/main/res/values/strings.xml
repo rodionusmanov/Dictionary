@@ -9,4 +9,5 @@
     <string name="undefined_error">Undefined error</string>
     <string name="devider_line">Devider line</string>
     <string name="clear_field">Clear field</string>
+    <string name="fab_to_search_meanings">FAB to search meanings</string>
 </resources>
