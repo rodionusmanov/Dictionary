@@ -1,24 +1,27 @@
 package com.example.dictionary.mvvm.presentation.viewModel
 
 import androidx.lifecycle.LiveData
-import com.example.dictionary.mvvm.model.DataSourceLocalMVVM
-import com.example.dictionary.mvvm.model.DataSourceRemoteMVVM
+import androidx.lifecycle.ViewModel
 import com.example.dictionary.mvvm.model.data.AppStateMVVM
-import com.example.dictionary.mvvm.model.repo.RepositoryImplMVVM
 import com.example.dictionary.mvvm.presentation.view.MainInteractorMVVM
 import com.example.dictionary.mvvm.presentation.viewModel.base.BaseViewModel
+import dagger.MapKey
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
+import kotlin.reflect.KClass
 
-class MainViewModel(
-    private val interactor: MainInteractorMVVM = MainInteractorMVVM(
-        RepositoryImplMVVM(DataSourceRemoteMVVM()),
-        RepositoryImplMVVM(DataSourceLocalMVVM())
-    )
+class MainViewModel @Inject constructor(
+    private val interactor: MainInteractorMVVM
 ) : BaseViewModel<AppStateMVVM>() {
 
     private var appStateMVVM: AppStateMVVM? = null
+
+    fun subscribe(): LiveData<AppStateMVVM>{
+        return liveData
+    }
 
     override fun getData(word: String, isOnline: Boolean): LiveData<AppStateMVVM> {
         compositeDisposable.add(
@@ -30,6 +33,9 @@ class MainViewModel(
         )
         return super.getData(word, isOnline)
     }
+
+    private fun doOnSubscribe(): (Disposable) -> Unit =
+        { liveData.value = AppStateMVVM.Loading(null) }
 
     private fun getObserver(): DisposableObserver<AppStateMVVM> {
         return object : DisposableObserver<AppStateMVVM>() {
@@ -46,4 +52,12 @@ class MainViewModel(
             }
         }
     }
+
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER
+    )
+    @MapKey
+    annotation class ViewModelKey(val value: KClass<out ViewModel>)
 }

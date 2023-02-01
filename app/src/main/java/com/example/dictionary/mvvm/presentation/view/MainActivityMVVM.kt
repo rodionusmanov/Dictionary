@@ -12,12 +12,16 @@ import com.example.dictionary.mvvm.model.data.DataModelMVVM
 import com.example.dictionary.mvvm.presentation.view.base.BaseActivityMVVM
 import com.example.dictionary.mvvm.presentation.viewModel.MainViewModel
 import com.example.dictionary.mvvm.presentation.viewModel.adapter.MainAdapterMVVM
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
 
-    override val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
+
+    @Inject
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+    override lateinit var viewModel: MainViewModel
+
     private lateinit var binding: ActivityMainBinding
     private var adapter: MainAdapterMVVM? = null
     private val onListItemClickListener: MainAdapterMVVM.OnListItemClickListener =
@@ -35,9 +39,17 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        AndroidInjection.inject(this)
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = viewModelFactory.create(MainViewModel::class.java)
+        viewModel.subscribe().observe(this@MainActivityMVVM) {
+            renderData(it)
+        }
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragmentMVVM.newInstance()

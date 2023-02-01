@@ -1,6 +1,6 @@
 package com.example.dictionary.mvvm.model
 
-import com.example.dictionary.dictionaryMVP.model.room.RoomDataBaseImplMVVM
+import com.example.dictionary.mvvm.model.room.RoomDataBaseImplMVVM
 import com.example.dictionary.mvvm.model.data.DataModelMVVM
 import com.example.dictionary.mvvm.model.retrofit.RetrofitImplMVVM
 import io.reactivex.rxjava3.core.Observable
