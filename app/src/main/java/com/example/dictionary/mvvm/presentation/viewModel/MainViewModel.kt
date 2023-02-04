@@ -6,50 +6,35 @@ import com.example.dictionary.mvvm.model.data.AppStateMVVM
 import com.example.dictionary.mvvm.presentation.view.MainInteractorMVVM
 import com.example.dictionary.mvvm.presentation.viewModel.base.BaseViewModel
 import dagger.MapKey
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.reflect.KClass
 
 class MainViewModel(
     private val interactor: MainInteractorMVVM
 ) : BaseViewModel<AppStateMVVM>() {
 
-    private var appStateMVVM: AppStateMVVM? = null
+    private val liveData: LiveData<AppStateMVVM> = _mutableLiveData
 
     fun subscribe(): LiveData<AppStateMVVM> {
         return liveData
     }
 
-    override fun getData(word: String, isOnline: Boolean): LiveData<AppStateMVVM> {
-        compositeDisposable.add(
-            interactor.getData(word, isOnline)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { liveData.value = AppStateMVVM.Loading(null) }
-                .subscribeWith(getObserver())
-        )
-        return super.getData(word, isOnline)
+    override fun getData(word: String, isOnline: Boolean) {
+        _mutableLiveData.value = AppStateMVVM.Loading(null)
+        cancelJob()
+        viewModelCoroutineScope.launch { startInteractor(word, isOnline) }
     }
 
-    private fun doOnSubscribe(): (Disposable) -> Unit =
-        { liveData.value = AppStateMVVM.Loading(null) }
-
-    private fun getObserver(): DisposableObserver<AppStateMVVM> {
-        return object : DisposableObserver<AppStateMVVM>() {
-            override fun onNext(t: AppStateMVVM) {
-                appStateMVVM = t
-                liveData.value = t
-            }
-
-            override fun onError(e: Throwable) {
-                liveData.value = AppStateMVVM.Error(e)
-            }
-
-            override fun onComplete() {
-            }
+    private suspend fun startInteractor(word: String, isOnline: Boolean) =
+        withContext(Dispatchers.IO) {
+        _mutableLiveData.postValue(interactor.getData(word, isOnline))
         }
+
+    override fun onCleared() {
+        _mutableLiveData.value = AppStateMVVM.Success(null)
+        super.onCleared()
     }
 
     @Target(

@@ -6,7 +6,7 @@ import com.example.dictionary.mvvm.presentation.viewModel.base.BaseViewModel
 
 abstract class BaseActivityMVVM<T: AppStateMVVM>: AppCompatActivity() {
 
-//    abstract val viewModel: BaseViewModel<T>
+    abstract val model: BaseViewModel<T>
 
     abstract fun renderData(appStateMVVM: T)
 }
