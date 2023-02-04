@@ -1,4 +1,4 @@
-package com.example.dictionary.mvvm.di
+package com.example.dictionary.mvvm.di.rx
 
 import android.app.Application
 import com.example.dictionary.mvvm.DictionaryApp

@@ -1,4 +1,4 @@
-package com.example.dictionary.mvvm.di
+package com.example.dictionary.mvvm.di.rx
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

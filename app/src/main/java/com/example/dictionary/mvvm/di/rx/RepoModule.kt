@@ -1,4 +1,4 @@
-package com.example.dictionary.mvvm.di
+package com.example.dictionary.mvvm.di.rx
 
 import com.example.dictionary.mvvm.model.room.RoomDataBaseImplMVVM
 import com.example.dictionary.mvvm.model.IDataSourceMVVM

@@ -10,16 +10,15 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
-import javax.inject.Inject
 import kotlin.reflect.KClass
 
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val interactor: MainInteractorMVVM
 ) : BaseViewModel<AppStateMVVM>() {
 
     private var appStateMVVM: AppStateMVVM? = null
 
-    fun subscribe(): LiveData<AppStateMVVM>{
+    fun subscribe(): LiveData<AppStateMVVM> {
         return liveData
     }
 

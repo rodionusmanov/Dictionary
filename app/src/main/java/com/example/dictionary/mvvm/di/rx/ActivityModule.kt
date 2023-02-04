@@ -1,4 +1,4 @@
-package com.example.dictionary.mvvm.di
+package com.example.dictionary.mvvm.di.rx
 
 import com.example.dictionary.mvvm.presentation.view.MainActivityMVVM
 import dagger.Module
