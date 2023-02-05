@@ -1,21 +1,20 @@
 package com.example.dictionary.mvvm.model.retrofit
 
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
 import com.example.dictionary.mvvm.model.ApiServiceMVVM
 import com.example.dictionary.mvvm.model.BaseInterceptorMVVM
 import com.example.dictionary.mvvm.model.IDataSourceMVVM
-import io.reactivex.rxjava3.core.Observable
+import com.example.dictionary.mvvm.model.data.DataModelMVVM
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitImplMVVM: IDataSourceMVVM<List<DataModelMVVM>> {
 
-    override fun getData(word: String): Observable<List<DataModelMVVM>> {
-        return getService(BaseInterceptorMVVM.interceptor).search(word)
+    override suspend fun getData(word: String): List<DataModelMVVM> {
+        return getService(BaseInterceptorMVVM.interceptor).searchAsync(word).await()
     }
 
     private fun getService(interceptor: Interceptor): ApiServiceMVVM {
@@ -26,7 +25,7 @@ class RetrofitImplMVVM: IDataSourceMVVM<List<DataModelMVVM>> {
         return Retrofit.Builder()
             .baseUrl(BASE_URL_LOCATIONS)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(createOkHttpClient(interceptor))
             .build()
     }

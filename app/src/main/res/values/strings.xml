@@ -3,7 +3,7 @@
     <string name="search_chip">Перевод</string>
     <string name="header">Header</string>
     <string name="description">description</string>
-    <string name="empty_server_response_on_success">Response fron server is empty</string>
+    <string name="empty_server_response_on_success">Response from server is empty</string>
     <string name="error_textview_stub">Error</string>
     <string name="reload_button">Reload</string>
     <string name="undefined_error">Undefined error</string>
