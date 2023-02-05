@@ -1,5 +1,6 @@
 package com.example.dictionary.mvvm.presentation.viewModel.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ class MainAdapterMVVM(
     private var data: List<DataModelMVVM>
 ) : RecyclerView.Adapter<MainAdapterMVVM.RecyclerItemViewHolder>()
 {
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<DataModelMVVM>) {
         this.data = data
         notifyDataSetChanged()

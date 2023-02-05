@@ -1,15 +1,12 @@
 package com.example.dictionary.mvvm.presentation.viewModel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.example.dictionary.mvvm.model.data.AppStateMVVM
 import com.example.dictionary.mvvm.presentation.view.MainInteractorMVVM
 import com.example.dictionary.mvvm.presentation.viewModel.base.BaseViewModel
-import dagger.MapKey
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.reflect.KClass
 
 class MainViewModel(
     private val interactor: MainInteractorMVVM
@@ -36,12 +33,4 @@ class MainViewModel(
         _mutableLiveData.value = AppStateMVVM.Success(null)
         super.onCleared()
     }
-
-    @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER
-    )
-    @MapKey
-    annotation class ViewModelKey(val value: KClass<out ViewModel>)
 }
