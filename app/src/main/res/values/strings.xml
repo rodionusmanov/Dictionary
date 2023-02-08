@@ -10,4 +10,7 @@
     <string name="devider_line">Devider line</string>
     <string name="clear_field">Clear field</string>
     <string name="fab_to_search_meanings">FAB to search meanings</string>
+    <string name="start_button">Start</string>
+    <string name="pause_button">Pause</string>
+    <string name="stop_button">Stop</string>
 </resources>
