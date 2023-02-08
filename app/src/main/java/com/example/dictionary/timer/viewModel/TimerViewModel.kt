@@ -10,7 +10,9 @@ class TimerViewModel : ViewModel() {
         Dispatchers.Main
                 + SupervisorJob()
     )
+
     private val mainTimerRepo = TimerRepo()
+    private val secondaryTimerRepo = TimerRepo()
 
     fun activateMainTimer() {
         mainTimerRepo.startTimer()
@@ -29,6 +31,25 @@ class TimerViewModel : ViewModel() {
             getTime(mainTimerRepo)
         }
         return mainTimerRepo.getTime()
+    }
+
+    fun activateSecondaryTimer() {
+        secondaryTimerRepo.startTimer()
+    }
+
+    fun pauseSecondaryTimer() {
+        secondaryTimerRepo.pauseTimer()
+    }
+
+    fun stopSecondaryTimer(){
+        secondaryTimerRepo.stopTimer()
+    }
+
+    suspend fun getSecondaryTime(): Long {
+        viewModelCoroutineScope.launch {
+            getTime(secondaryTimerRepo)
+        }
+        return secondaryTimerRepo.getTime()
     }
 
     private suspend fun getTime(timerRepo: TimerRepo): Long {

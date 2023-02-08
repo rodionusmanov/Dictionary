@@ -12,26 +12,46 @@ class TimerActivity : AppCompatActivity() {
 
     private lateinit var viewModel: TimerViewModel
     private lateinit var binding: ActivityTimerBinding
-    private var timerIsActive = false
+    private var mainTimerIsActive = false
+    private var secondaryTimerIsActive = false
 
     private val scope = CoroutineScope(Dispatchers.Main)
-    private var job: Job? = null
+    private var jobMain: Job? = null
+    private var jobSecondary: Job? = null
     private var mainTimer: String = convertTimeToDisplay(0L)
+    private var secondaryTimer: String = convertTimeToDisplay(0L)
 
-    private val startButtonClickListener: View.OnClickListener = View.OnClickListener {
-        binding.pauseButton.isClickable = true
+    private val mainStartButtonClickListener: View.OnClickListener = View.OnClickListener {
+        binding.mainPauseButton.isClickable = true
         mainStart()
     }
 
-    private val stopButtonClickListener: View.OnClickListener = View.OnClickListener {
+    private val secondaryStartButtonClickListener: View.OnClickListener = View.OnClickListener {
+        binding.secondaryPauseButton.isClickable = true
+        secondaryStart()
+    }
+
+    private val mainStopButtonClickListener: View.OnClickListener = View.OnClickListener {
         mainStop()
     }
 
-    private val pauseButtonClickListener: View.OnClickListener = View.OnClickListener {
-        if (timerIsActive) {
+    private val secondaryStopButtonClickListener: View.OnClickListener = View.OnClickListener {
+        secondaryStop()
+    }
+
+    private val mainPauseButtonClickListener: View.OnClickListener = View.OnClickListener {
+        if (mainTimerIsActive) {
             mainPause()
         } else {
             mainStart()
+        }
+    }
+
+    private val secondaryPauseButtonClickListener: View.OnClickListener = View.OnClickListener {
+        if (secondaryTimerIsActive) {
+            secondaryPause()
+        } else {
+            secondaryStart()
         }
     }
 
@@ -45,11 +65,16 @@ class TimerActivity : AppCompatActivity() {
 
     private fun initViews() {
         binding.apply {
-            startButton.setOnClickListener(startButtonClickListener)
-            stopButton.setOnClickListener(stopButtonClickListener)
-            pauseButton.setOnClickListener(pauseButtonClickListener)
-            pauseButton.isClickable = false
-            timerDisplay.text = mainTimer
+            mainStartButton.setOnClickListener(mainStartButtonClickListener)
+            mainStopButton.setOnClickListener(mainStopButtonClickListener)
+            mainPauseButton.setOnClickListener(mainPauseButtonClickListener)
+            mainPauseButton.isClickable = false
+            mainTimerDisplay.text = mainTimer
+            secondaryStartButton.setOnClickListener(secondaryStartButtonClickListener)
+            secondaryStopButton.setOnClickListener(secondaryStopButtonClickListener)
+            secondaryPauseButton.setOnClickListener(secondaryPauseButtonClickListener)
+            secondaryPauseButton.isClickable = false
+            secondaryTimerDisplay.text = secondaryTimer
         }
     }
 
@@ -62,13 +87,13 @@ class TimerActivity : AppCompatActivity() {
     }
 
     private fun mainStart() {
-        binding.startButton.isClickable = false
+        binding.mainStartButton.isClickable = false
         viewModel.activateMainTimer()
-        job = scope.launch {
-            timerIsActive = true
-            while (timerIsActive) {
+        jobMain = scope.launch {
+            mainTimerIsActive = true
+            while (mainTimerIsActive) {
                 mainTimer = convertTimeToDisplay(viewModel.getMainTime())
-                binding.timerDisplay.text = mainTimer
+                binding.mainTimerDisplay.text = mainTimer
                 delay(10)
             }
         }
@@ -76,17 +101,48 @@ class TimerActivity : AppCompatActivity() {
 
     private fun mainPause() {
         viewModel.pauseMainTimer()
-        job?.cancel()
-        timerIsActive = false
-        binding.startButton.isClickable = true
+        jobMain?.cancel()
+        mainTimerIsActive = false
+        binding.mainStartButton.isClickable = true
     }
 
     private fun mainStop() {
         viewModel.stopMainTimer()
-        timerIsActive = false
+        jobMain?.cancel()
+        mainTimerIsActive = false
         mainTimer = convertTimeToDisplay(0L)
-        binding.timerDisplay.text = mainTimer
-        binding.startButton.isClickable = true
-        binding.pauseButton.isClickable = false
+        binding.mainTimerDisplay.text = mainTimer
+        binding.mainStartButton.isClickable = true
+        binding.mainPauseButton.isClickable = false
+    }
+
+    private fun secondaryStart() {
+        binding.secondaryStartButton.isClickable = false
+        viewModel.activateSecondaryTimer()
+        jobSecondary = scope.launch {
+            secondaryTimerIsActive = true
+            while (secondaryTimerIsActive) {
+                secondaryTimer = convertTimeToDisplay(viewModel.getSecondaryTime())
+                binding.secondaryTimerDisplay.text = secondaryTimer
+                delay(10)
+            }
+        }
+    }
+
+    private fun secondaryPause() {
+        viewModel.pauseSecondaryTimer()
+        jobSecondary?.cancel()
+        secondaryTimerIsActive = false
+        binding.secondaryStartButton.isClickable = true
+    }
+
+    private fun secondaryStop() {
+        viewModel.stopSecondaryTimer()
+        jobSecondary?.cancel()
+        secondaryTimerIsActive = false
+        secondaryTimer = convertTimeToDisplay(0L)
+        binding.secondaryTimerDisplay.text = secondaryTimer
+        binding.secondaryStartButton.isClickable = true
+        binding.secondaryPauseButton.isClickable = false
     }
 }
