@@ -11,6 +11,7 @@ import com.example.dictionary.databinding.ActivityMainBinding
 import com.example.dictionary.dictionaryMVP.view.main.SearchDialogFragment
 import com.example.dictionary.mvvm.model.data.AppStateMVVM
 import com.example.dictionary.mvvm.model.data.DataModelMVVM
+import com.example.dictionary.mvvm.model.data.Meanings
 import com.example.dictionary.mvvm.presentation.view.base.BaseActivityMVVM
 import com.example.dictionary.mvvm.presentation.view.history.HistoryFragment
 import com.example.dictionary.mvvm.presentation.viewModel.MainViewModel
@@ -36,10 +37,15 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
     private val onListItemClickListener: MainAdapterMVVM.OnListItemClickListener =
         object : MainAdapterMVVM.OnListItemClickListener {
             override fun onItemClick(data: DataModelMVVM) {
-                Toast.makeText(
-                    this@MainActivityMVVM, data.text,
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (!data.text.isNullOrBlank() && !data.meanings.isNullOrEmpty()) {
+                    for (meaning in data.meanings) {
+                        if (meaning.translation != null &&
+                            !meaning.translation.translation.isNullOrBlank()) {
+                            val dialog = DescriptionDialogFragment(data.text, meaning.translation.translation, meaning.imageUrl.toString())
+                            dialog.show(supportFragmentManager,"translation with image dialog")
+                        }
+                    }
+                }
             }
         }
 
