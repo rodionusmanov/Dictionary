@@ -12,13 +12,13 @@ import com.example.dictionary.mvvm.model.data.DataModelMVVM
 class MainAdapterMVVM(
     private var onListItemClickListener: OnListItemClickListener,
     private var data: List<DataModelMVVM>
-) : RecyclerView.Adapter<MainAdapterMVVM.RecyclerItemViewHolder>()
-{
+) : RecyclerView.Adapter<MainAdapterMVVM.RecyclerItemViewHolder>() {
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<DataModelMVVM>) {
         this.data = data
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             RecyclerItemViewHolder {
         return RecyclerItemViewHolder(
@@ -27,12 +27,15 @@ class MainAdapterMVVM(
                     View
         )
     }
+
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
         holder.bind(data[position])
     }
+
     override fun getItemCount(): Int {
         return data.size
     }
+
     inner class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(data: DataModelMVVM) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
@@ -43,11 +46,12 @@ class MainAdapterMVVM(
             }
         }
     }
+
     private fun openInNewWindow(listItemData: DataModelMVVM) {
         onListItemClickListener.onItemClick(listItemData)
     }
+
     interface OnListItemClickListener {
         fun onItemClick(data: DataModelMVVM)
     }
-
 }

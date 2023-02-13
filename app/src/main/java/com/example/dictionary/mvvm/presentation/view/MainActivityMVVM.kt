@@ -1,10 +1,11 @@
 package com.example.dictionary.mvvm.presentation.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.R
 import com.example.dictionary.databinding.ActivityMainBinding
@@ -12,6 +13,8 @@ import com.example.dictionary.dictionaryMVP.view.main.SearchDialogFragment
 import com.example.dictionary.mvvm.model.data.AppStateMVVM
 import com.example.dictionary.mvvm.model.data.DataModelMVVM
 import com.example.dictionary.mvvm.presentation.view.base.BaseActivityMVVM
+import com.example.dictionary.mvvm.presentation.view.history.HistoryFragment
+import com.example.dictionary.mvvm.presentation.view.history.SeacrhInHistoryDialogFragment
 import com.example.dictionary.mvvm.presentation.viewModel.MainViewModel
 import com.example.dictionary.mvvm.presentation.viewModel.adapter.MainAdapterMVVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,10 +38,20 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
     private val onListItemClickListener: MainAdapterMVVM.OnListItemClickListener =
         object : MainAdapterMVVM.OnListItemClickListener {
             override fun onItemClick(data: DataModelMVVM) {
-                Toast.makeText(
-                    this@MainActivityMVVM, data.text,
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (!data.text.isNullOrBlank() && !data.meanings.isNullOrEmpty()) {
+                    for (meaning in data.meanings) {
+                        if (meaning.translation != null &&
+                            !meaning.translation.translation.isNullOrBlank()
+                        ) {
+                            val dialog = TranslationDialogFragment(
+                                data.text,
+                                meaning.translation.translation,
+                                meaning.imageUrl.toString()
+                            )
+                            dialog.show(supportFragmentManager, "translation with image dialog")
+                        }
+                    }
+                }
             }
         }
 
@@ -48,6 +61,46 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
                 model.getData(searchWord, true)
             }
         }
+
+    private val onSearchInHistoryClickListener: SeacrhInHistoryDialogFragment.OnSearchInHistoryClickListener =
+        object : SeacrhInHistoryDialogFragment.OnSearchInHistoryClickListener {
+            override fun onClick(searchWord: String) {
+
+                startHistoryFragment(searchWord)
+            }
+        }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.searched_words -> {
+                startHistoryFragment("")
+                return true
+            }
+            else -> {
+                val searchInHistoryDialogFragment = SeacrhInHistoryDialogFragment.newInstance()
+                searchInHistoryDialogFragment.setOnSearchInHistoryClickListener(
+                    onSearchInHistoryClickListener
+                )
+                searchInHistoryDialogFragment.show(
+                    supportFragmentManager,
+                    BOTTOM_SHEET_FRAGMENT_DIALOG_TAG
+                )
+                return true
+            }
+        }
+    }
+
+    private fun startHistoryFragment(word: String) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, HistoryFragment(word))
+            .addToBackStack(null)
+            .commit()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
