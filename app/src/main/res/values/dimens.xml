@@ -8,4 +8,5 @@
     <dimen name="Thin_line_size">1dp</dimen>
     <dimen name="padding_description">8dp</dimen>
     <dimen name="Display_text_size">120sp</dimen>
+    <dimen name="Button_size">56dp</dimen>
 </resources>

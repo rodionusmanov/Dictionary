@@ -12,6 +12,7 @@ import com.example.dictionary.dictionaryMVP.view.main.SearchDialogFragment
 import com.example.dictionary.mvvm.model.data.AppStateMVVM
 import com.example.dictionary.mvvm.model.data.DataModelMVVM
 import com.example.dictionary.mvvm.presentation.view.base.BaseActivityMVVM
+import com.example.dictionary.mvvm.presentation.view.history.HistoryFragment
 import com.example.dictionary.mvvm.presentation.viewModel.MainViewModel
 import com.example.dictionary.mvvm.presentation.viewModel.adapter.MainAdapterMVVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -123,6 +124,13 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
             searchFab.setOnClickListener(fabClickListener)
             mainActivityRecyclerview.layoutManager = LinearLayoutManager(applicationContext)
             mainActivityRecyclerview.adapter = adapter
+            historyButton.setOnClickListener {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.container, HistoryFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
     }
 

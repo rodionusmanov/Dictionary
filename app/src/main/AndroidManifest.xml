@@ -17,7 +17,7 @@
         android:name=".mvvm.DictionaryApp"
         tools:targetApi="31">
         <activity
-            android:name=".timer.TimerActivity"
+            android:name=".mvvm.presentation.view.MainActivityMVVM"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
