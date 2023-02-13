@@ -15,4 +15,6 @@
     <string name="stop_button">Stop</string>
     <string name="history">H</string>
     <string name="empty_data_header">database is empty</string>
+    <string name="searched_words">История поиска слов</string>
+    <string name="history_words">Значения запросов</string>
 </resources>

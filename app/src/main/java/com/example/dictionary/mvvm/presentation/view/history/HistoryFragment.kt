@@ -9,10 +9,11 @@ import androidx.fragment.app.Fragment
 import com.example.dictionary.R
 import com.example.dictionary.databinding.HistoryFragmentBinding
 import com.example.dictionary.mvvm.model.data.AppStateMVVM
+import com.example.dictionary.mvvm.presentation.view.TranslationDialogFragment
 import com.example.dictionary.mvvm.presentation.viewModel.history.HistoryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryFragment : Fragment() {
+class HistoryFragment(private var searchedWord: String) : Fragment() {
 
     private lateinit var binding: HistoryFragmentBinding
     private lateinit var model: HistoryViewModel
@@ -36,7 +37,7 @@ class HistoryFragment : Fragment() {
 
     private fun initViews() {
         binding.historyFragmentRecyclerview.adapter = adapter
-        model.getData("", false)
+        model.getData(searchedWord, false)
     }
 
     private fun initViewModel() {
@@ -62,8 +63,35 @@ class HistoryFragment : Fragment() {
                             Toast.LENGTH_LONG
                         ).show()
                     } else {
-                        dataModel?.let { list ->
-                            adapter.setData(list)
+                        if (searchedWord == "") {
+                            dataModel?.let { list ->
+                                adapter.setData(list)
+                            }
+                        } else {
+                            var wordFound = false
+                            dataModel?.let {
+                                for (i in dataModel.indices) {
+                                    if (dataModel[i].text.equals(searchedWord)) {
+                                        wordFound = true
+                                        val dialog = TranslationDialogFragment(
+                                            dataModel[i].text.toString(),
+                                            "Слово есть в истории запросов",
+                                            ""
+                                        )
+                                        dialog.show(
+                                            childFragmentManager,
+                                            "translation with image dialog"
+                                        )
+                                    }
+                                }
+                                if (!wordFound) {
+                                    Toast.makeText(
+                                        context,
+                                        "Слово не найдено в истории запросов",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
                         }
                     }
                 }
@@ -72,6 +100,4 @@ class HistoryFragment : Fragment() {
             is AppStateMVVM.Error -> {}
         }
     }
-
-
 }

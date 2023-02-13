@@ -54,5 +54,4 @@ class MainAdapterMVVM(
     interface OnListItemClickListener {
         fun onItemClick(data: DataModelMVVM)
     }
-
 }

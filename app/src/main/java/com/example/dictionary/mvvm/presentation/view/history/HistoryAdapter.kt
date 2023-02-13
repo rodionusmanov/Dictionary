@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dictionary.R
 import com.example.dictionary.mvvm.model.data.DataModelMVVM
 
-class HistoryAdapter() :
+class HistoryAdapter :
     RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {
     private var data: List<DataModelMVVM> = arrayListOf()
 

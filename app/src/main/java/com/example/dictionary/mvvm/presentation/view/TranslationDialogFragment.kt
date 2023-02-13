@@ -8,18 +8,16 @@ import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import coil.load
 import coil.size.OriginalSize
-import coil.transform.CircleCropTransformation
-import coil.transform.RoundedCornersTransformation
-import com.example.dictionary.databinding.DescriptionImageDialogFragmentBinding
+import com.example.dictionary.databinding.TranslationImageDialogFragmentBinding
 
-class DescriptionDialogFragment(
+class TranslationDialogFragment(
     private val header: String,
-    private val description: String,
+    private val translation: String,
     private val imageLink: String
 ) : DialogFragment() {
 
-    private var _viewBinding: DescriptionImageDialogFragmentBinding? = null
-    private val viewBinding: DescriptionImageDialogFragmentBinding
+    private var _viewBinding: TranslationImageDialogFragmentBinding? = null
+    private val viewBinding: TranslationImageDialogFragmentBinding
         get() {
             return _viewBinding!!
         }
@@ -29,7 +27,7 @@ class DescriptionDialogFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return DescriptionImageDialogFragmentBinding.inflate(inflater, container, false).also {
+        return TranslationImageDialogFragmentBinding.inflate(inflater, container, false).also {
             _viewBinding = it
         }.root
     }
@@ -37,7 +35,7 @@ class DescriptionDialogFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(viewBinding) {
             tvHeader.text = header
-            tvDescription.text = description
+            tvTranslation.text = translation
             useCoilToLoadPhoto(iv, imageLink)
         }
     }

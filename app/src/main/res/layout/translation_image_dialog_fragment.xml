@@ -14,9 +14,10 @@
         android:textSize="@dimen/Header_text_size" />
 
     <TextView
-        android:id="@+id/tv_description"
+        android:id="@+id/tv_translation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textColor="?attr/cardviewTextColor"
         android:textSize="@dimen/Description_text_size" />
 
