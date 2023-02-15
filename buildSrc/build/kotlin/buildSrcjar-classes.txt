@@ -1,0 +1,1 @@
+C:\Users\79262\AndroidStudioProjects\Dictionary\buildSrc\build\classes\kotlin\main\Deps.class
