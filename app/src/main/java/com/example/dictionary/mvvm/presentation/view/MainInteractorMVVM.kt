@@ -1,7 +1,7 @@
 package com.example.dictionary.mvvm.presentation.view
 
-import com.example.dictionary.mvvm.model.data.AppStateMVVM
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
+import com.example.data.AppStateMVVM
+import com.example.data.DataModelMVVM
 import com.example.dictionary.mvvm.model.repo.IRepositoryLocal
 import com.example.dictionary.mvvm.model.repo.IRepositoryMVVM
 

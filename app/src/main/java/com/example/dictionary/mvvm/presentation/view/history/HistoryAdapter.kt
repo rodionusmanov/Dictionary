@@ -8,7 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dictionary.R
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
+import com.example.data.DataModelMVVM
 
 class HistoryAdapter :
     RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {

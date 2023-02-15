@@ -2,7 +2,7 @@ package com.example.dictionary.mvvm.presentation.viewModel.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.dictionary.mvvm.model.data.AppStateMVVM
+import com.example.data.AppStateMVVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

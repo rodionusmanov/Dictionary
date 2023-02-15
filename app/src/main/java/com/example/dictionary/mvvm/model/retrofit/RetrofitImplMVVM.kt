@@ -3,7 +3,7 @@ package com.example.dictionary.mvvm.model.retrofit
 import com.example.dictionary.mvvm.model.ApiServiceMVVM
 import com.example.dictionary.mvvm.model.BaseInterceptorMVVM
 import com.example.dictionary.mvvm.model.IDataSourceMVVM
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
+import com.example.data.DataModelMVVM
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

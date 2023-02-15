@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dictionary.R
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
+import com.example.data.DataModelMVVM
 
 class MainAdapterMVVM(
     private var onListItemClickListener: OnListItemClickListener,

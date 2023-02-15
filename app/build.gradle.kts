@@ -8,11 +8,12 @@ android {
     compileSdk = 32
 
     defaultConfig {
-        applicationId = "com.example.dictionary"
-        minSdk = 26
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Deps.Config.application_id
+        minSdk = Deps.Config.min_sdk
+        targetSdk = Deps.Config.target_sdk
+        compileSdk = Deps.Config.compile_sdk
+        versionCode = Deps.Releases.version_code
+        versionName = Deps.Releases.version_name
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,8 +32,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Deps.Config.java_version
+        targetCompatibility = Deps.Config.java_version
     }
 
     kotlinOptions {
@@ -90,4 +91,5 @@ dependencies {
     androidTestImplementation(Deps.ESPRESSO_DEP)
 
     implementation(Deps.LIFECYCLE_VIEWMODEL_DEP)
+    implementation(project(":data"))
 }

@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.dictionary.R
 import com.example.dictionary.databinding.HistoryFragmentBinding
-import com.example.dictionary.mvvm.model.data.AppStateMVVM
+import com.example.data.AppStateMVVM
 import com.example.dictionary.mvvm.presentation.view.TranslationDialogFragment
 import com.example.dictionary.mvvm.presentation.viewModel.history.HistoryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel

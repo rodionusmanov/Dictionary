@@ -1,4 +1,28 @@
+import org.gradle.api.JavaVersion
+
 object Deps {
+
+    object Config {
+        const val application_id = "com.example.dictionary"
+        const val min_sdk = 26
+        const val target_sdk = 32
+        const val compile_sdk = 32
+        val java_version = JavaVersion.VERSION_1_8
+    }
+    object Releases {
+        const val version_code = 1
+        const val version_name = "1.0"
+    }
+    object Modules {
+        const val app = ":app"
+        const val core = ":core"
+        const val model = ":model"
+        const val repository = ":repository"
+        const val utils = ":utils"
+
+        const val historyScreen = ":historyScreen"
+    }
+
     //Rx-Java
     private const val RXANDROID_VERSION = "3.0.0"
     private const val RXJAVA_VERSION = "3.0.0"

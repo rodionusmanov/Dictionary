@@ -1,7 +1,7 @@
 package com.example.dictionary.mvvm.presentation.viewModel.history
 
 import androidx.lifecycle.LiveData
-import com.example.dictionary.mvvm.model.data.AppStateMVVM
+import com.example.data.AppStateMVVM
 import com.example.dictionary.mvvm.presentation.view.history.HistoryInteractor
 import com.example.dictionary.mvvm.presentation.viewModel.base.BaseViewModel
 import com.example.dictionary.mvvm.utils.parseLocalSearchResults

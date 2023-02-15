@@ -1,4 +1,4 @@
-package com.example.dictionary.mvvm.model.data
+package com.example.data
 
 sealed class AppStateMVVM {
     data class Success(val data: List<DataModelMVVM>?) : AppStateMVVM()
