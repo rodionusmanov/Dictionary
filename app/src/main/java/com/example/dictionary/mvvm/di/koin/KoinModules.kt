@@ -2,7 +2,6 @@ package com.example.dictionary.mvvm.di.koin
 
 import androidx.room.Room
 import com.example.data.DataModelMVVM
-//import com.example.dictionary.mvvm.model.data.DataModelMVVM
 import com.example.dictionary.mvvm.model.repo.IRepositoryLocal
 import com.example.dictionary.mvvm.model.repo.IRepositoryMVVM
 import com.example.dictionary.mvvm.model.repo.RepositoryImplLocalMVVM

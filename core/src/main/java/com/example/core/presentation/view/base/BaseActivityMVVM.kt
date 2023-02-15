@@ -1,8 +1,8 @@
-package com.example.dictionary.mvvm.presentation.view.base
+package com.example.core.presentation.view.base
 
 import androidx.appcompat.app.AppCompatActivity
 import com.example.data.AppStateMVVM
-import com.example.dictionary.mvvm.presentation.viewModel.base.BaseViewModel
+import com.example.core.presentation.viewModel.base.BaseViewModel
 
 abstract class BaseActivityMVVM<T: AppStateMVVM>: AppCompatActivity() {
 

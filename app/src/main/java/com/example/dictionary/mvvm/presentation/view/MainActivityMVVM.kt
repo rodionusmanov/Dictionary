@@ -12,7 +12,7 @@ import com.example.dictionary.databinding.ActivityMainBinding
 import com.example.dictionary.dictionaryMVP.view.main.SearchDialogFragment
 import com.example.data.AppStateMVVM
 import com.example.data.DataModelMVVM
-import com.example.dictionary.mvvm.presentation.view.base.BaseActivityMVVM
+import com.example.core.presentation.view.base.BaseActivityMVVM
 import com.example.dictionary.mvvm.presentation.view.history.HistoryFragment
 import com.example.dictionary.mvvm.presentation.view.history.SeacrhInHistoryDialogFragment
 import com.example.dictionary.mvvm.presentation.viewModel.MainViewModel

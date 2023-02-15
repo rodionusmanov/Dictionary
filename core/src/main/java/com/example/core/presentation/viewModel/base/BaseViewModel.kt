@@ -1,4 +1,4 @@
-package com.example.dictionary.mvvm.presentation.viewModel.base
+package com.example.core.presentation.viewModel.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

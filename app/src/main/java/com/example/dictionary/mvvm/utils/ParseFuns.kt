@@ -1,4 +1,4 @@
-package com.example.dictionary.mvvm.utils
+package com.example.utils
 
 import com.example.data.AppStateMVVM
 import com.example.data.DataModelMVVM
