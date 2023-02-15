@@ -1,7 +1,7 @@
 package com.example.dictionary.mvvm.model.repo
 
-import com.example.dictionary.mvvm.model.data.AppStateMVVM
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
+import com.example.data.AppStateMVVM
+import com.example.data.DataModelMVVM
 
 class RepositoryImplLocalMVVM(private val dataSource: IDataSourceLocal<List<DataModelMVVM>>) :
     IRepositoryLocal<List<DataModelMVVM>> {

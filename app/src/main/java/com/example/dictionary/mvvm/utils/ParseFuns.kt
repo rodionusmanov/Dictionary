@@ -1,8 +1,8 @@
-package com.example.dictionary.mvvm.utils
+package com.example.utils
 
-import com.example.dictionary.mvvm.model.data.AppStateMVVM
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
-import com.example.dictionary.mvvm.model.data.Meanings
+import com.example.data.AppStateMVVM
+import com.example.data.DataModelMVVM
+import com.example.data.Meanings
 import com.example.dictionary.mvvm.model.room.entities.HistoryEntity
 
 fun parseOnlineSearchResults(appState: AppStateMVVM): AppStateMVVM {
@@ -47,10 +47,17 @@ private fun parseOnlineResult(dataModel: DataModelMVVM, newDataModels:
 ArrayList<DataModelMVVM>) {
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
         val newMeanings = arrayListOf<Meanings>()
-        for (meaning in dataModel.meanings) {
-            if (meaning.translation != null &&
-                !meaning.translation.translation.isNullOrBlank()) {
-                newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
+        val currentMeanings = dataModel.meanings
+        currentMeanings?.let {
+            for (meaning in currentMeanings) {
+                val currentTranslations = meaning.translation
+                currentTranslations?.let {
+                    if (it != null &&
+                        !it.translation.isNullOrBlank()) {
+                        newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
+                    }
+                }
+
             }
         }
         if (newMeanings.isNotEmpty()) {

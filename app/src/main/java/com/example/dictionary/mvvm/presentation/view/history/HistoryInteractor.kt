@@ -1,10 +1,10 @@
 package com.example.dictionary.mvvm.presentation.view.history
 
-import com.example.dictionary.mvvm.model.data.AppStateMVVM
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
+import com.example.data.AppStateMVVM
+import com.example.data.DataModelMVVM
 import com.example.dictionary.mvvm.model.repo.IRepositoryLocal
 import com.example.dictionary.mvvm.model.repo.IRepositoryMVVM
-import com.example.dictionary.mvvm.presentation.view.InteractorMVVM
+import com.example.core.presentation.view.InteractorMVVM
 
 class HistoryInteractor(
     private val repositoryRemote: IRepositoryMVVM<List<DataModelMVVM>>,

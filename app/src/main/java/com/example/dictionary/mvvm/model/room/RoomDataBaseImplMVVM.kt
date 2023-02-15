@@ -1,7 +1,7 @@
 package com.example.dictionary.mvvm.model.room
 
-import com.example.dictionary.mvvm.model.data.AppStateMVVM
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
+import com.example.data.AppStateMVVM
+import com.example.data.DataModelMVVM
 import com.example.dictionary.mvvm.model.repo.IDataSourceLocal
 import com.example.dictionary.mvvm.model.room.dataAccessObject.IHistoryDAO
 import com.example.dictionary.mvvm.model.room.entities.HistoryEntity

@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.R
 import com.example.dictionary.databinding.ActivityMainBinding
 import com.example.dictionary.dictionaryMVP.view.main.SearchDialogFragment
-import com.example.dictionary.mvvm.model.data.AppStateMVVM
-import com.example.dictionary.mvvm.model.data.DataModelMVVM
-import com.example.dictionary.mvvm.presentation.view.base.BaseActivityMVVM
+import com.example.data.AppStateMVVM
+import com.example.data.DataModelMVVM
+import com.example.core.presentation.view.base.BaseActivityMVVM
 import com.example.dictionary.mvvm.presentation.view.history.HistoryFragment
 import com.example.dictionary.mvvm.presentation.view.history.SeacrhInHistoryDialogFragment
 import com.example.dictionary.mvvm.presentation.viewModel.MainViewModel
@@ -39,16 +39,23 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
         object : MainAdapterMVVM.OnListItemClickListener {
             override fun onItemClick(data: DataModelMVVM) {
                 if (!data.text.isNullOrBlank() && !data.meanings.isNullOrEmpty()) {
-                    for (meaning in data.meanings) {
-                        if (meaning.translation != null &&
-                            !meaning.translation.translation.isNullOrBlank()
-                        ) {
-                            val dialog = TranslationDialogFragment(
-                                data.text,
-                                meaning.translation.translation,
-                                meaning.imageUrl.toString()
-                            )
-                            dialog.show(supportFragmentManager, "translation with image dialog")
+                    val currentMeanings = data.meanings
+                    if (currentMeanings != null) {
+                        for (meaning in currentMeanings) {
+                            val currentTranslations = meaning.translation
+                            if (currentTranslations != null &&
+                                !currentTranslations.translation.isNullOrBlank()
+                            ) {
+                                val currentText = data.text
+                                val dialog = currentText?.let {
+                                    TranslationDialogFragment(
+                                        it,
+                                        currentTranslations.translation!!,
+                                        meaning.imageUrl.toString()
+                                    )
+                                }
+                                dialog?.show(supportFragmentManager, "translation with image dialog")
+                            }
                         }
                     }
                 }
@@ -129,11 +136,14 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
                 }
             }
             is AppStateMVVM.Loading -> {
+                val currentProgress = appStateMVVM.progress
                 showViewLoading()
                 if (appStateMVVM.progress != null) {
                     binding.progressBarHorizontal.visibility = VISIBLE
                     binding.progressBarRound.visibility = GONE
-                    binding.progressBarHorizontal.progress = appStateMVVM.progress
+                    currentProgress?.let {
+                        binding.progressBarHorizontal.progress = it
+                    }
                 } else {
                     binding.progressBarHorizontal.visibility = GONE
                     binding.progressBarRound.visibility = VISIBLE
