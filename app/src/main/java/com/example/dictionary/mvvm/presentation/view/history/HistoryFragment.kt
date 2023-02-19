@@ -6,14 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.data.AppStateMVVM
 import com.example.dictionary.R
 import com.example.dictionary.databinding.HistoryFragmentBinding
-import com.example.data.AppStateMVVM
 import com.example.dictionary.mvvm.presentation.view.TranslationDialogFragment
 import com.example.dictionary.mvvm.presentation.viewModel.history.HistoryViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.getKoin
+import org.koin.core.qualifier.named
 
 class HistoryFragment(private var searchedWord: String) : Fragment() {
+
+    private val scopeHistory by lazy {
+        getKoin().getOrCreateScope("historyId", named<HistoryFragment>())
+    }
 
     private lateinit var binding: HistoryFragmentBinding
     private lateinit var model: HistoryViewModel
@@ -44,7 +49,7 @@ class HistoryFragment(private var searchedWord: String) : Fragment() {
         if (binding.historyFragmentRecyclerview.adapter != null) {
             throw IllegalStateException("ViewModel not initialised")
         }
-        val viewModel: HistoryViewModel by viewModel()
+        val viewModel: HistoryViewModel by scopeHistory.inject()
         model = viewModel
         model.subscribe().observe(viewLifecycleOwner) {
             renderData(it)
@@ -99,5 +104,10 @@ class HistoryFragment(private var searchedWord: String) : Fragment() {
             is AppStateMVVM.Loading -> {}
             is AppStateMVVM.Error -> {}
         }
+    }
+
+    override fun onDestroy() {
+        scopeHistory.close()
+        super.onDestroy()
     }
 }

@@ -9,11 +9,17 @@ import com.example.dictionary.mvvm.model.repo.RepositoryImplMVVM
 import com.example.dictionary.mvvm.model.retrofit.RetrofitImplMVVM
 import com.example.dictionary.mvvm.model.room.RoomDataBaseImplMVVM
 import com.example.dictionary.mvvm.model.room.dataBase.HistoryDataBase
+import com.example.dictionary.mvvm.presentation.view.MainActivityMVVM
 import com.example.dictionary.mvvm.presentation.view.MainInteractorMVVM
+import com.example.dictionary.mvvm.presentation.view.history.HistoryFragment
 import com.example.dictionary.mvvm.presentation.view.history.HistoryInteractor
 import com.example.dictionary.mvvm.presentation.viewModel.MainViewModel
 import com.example.dictionary.mvvm.presentation.viewModel.history.HistoryViewModel
+import org.koin.android.compat.ScopeCompat.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import org.koin.dsl.scoped
 
 object KoinModules {
     val application = module {
@@ -33,17 +39,16 @@ object KoinModules {
     }
 
     val mainScreen = module {
-        factory { MainViewModel(get()) }
-        factory {
-            MainInteractorMVVM(
-                get(),
-                get()
-            )
+        scope(named<MainActivityMVVM>()) {
+            scoped { MainInteractorMVVM(get(), get()) }
+            viewModel { MainViewModel(get()) }
         }
     }
 
     val historyScreen = module {
-        factory { HistoryViewModel(get()) }
-        factory { HistoryInteractor(get(), get()) }
+        scope(named<HistoryFragment>()) {
+            scoped { HistoryInteractor(get(), get()) }
+            viewModel { HistoryViewModel(get()) }
+        }
     }
 }

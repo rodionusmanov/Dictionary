@@ -7,19 +7,24 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.core.presentation.view.base.BaseActivityMVVM
+import com.example.data.AppStateMVVM
+import com.example.data.DataModelMVVM
 import com.example.dictionary.R
 import com.example.dictionary.databinding.ActivityMainBinding
 import com.example.dictionary.dictionaryMVP.view.main.SearchDialogFragment
-import com.example.data.AppStateMVVM
-import com.example.data.DataModelMVVM
-import com.example.core.presentation.view.base.BaseActivityMVVM
 import com.example.dictionary.mvvm.presentation.view.history.HistoryFragment
 import com.example.dictionary.mvvm.presentation.view.history.SeacrhInHistoryDialogFragment
 import com.example.dictionary.mvvm.presentation.viewModel.MainViewModel
 import com.example.dictionary.mvvm.presentation.viewModel.adapter.MainAdapterMVVM
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.getKoin
+import org.koin.core.qualifier.named
 
 class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
+
+    private val scopeActivity by lazy {
+        getKoin().createScope("mainActivityId", named<MainActivityMVVM>())
+    }
 
     override lateinit var model: MainViewModel
     private lateinit var binding: ActivityMainBinding
@@ -54,7 +59,10 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
                                         meaning.imageUrl.toString()
                                     )
                                 }
-                                dialog?.show(supportFragmentManager, "translation with image dialog")
+                                dialog?.show(
+                                    supportFragmentManager,
+                                    "translation with image dialog"
+                                )
                             }
                         }
                     }
@@ -193,7 +201,7 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
         if (binding.mainActivityRecyclerview.adapter != null) {
             throw IllegalStateException("ViewModel not initialised")
         }
-        val viewModel: MainViewModel by viewModel()
+        val viewModel: MainViewModel by scopeActivity.inject()
         model = viewModel
         model.subscribe().observe(this@MainActivityMVVM) {
             renderData(it)
@@ -203,5 +211,10 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
     companion object {
         private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG =
             "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
+    }
+
+    override fun onDestroy() {
+        scopeActivity.close()
+        super.onDestroy()
     }
 }
