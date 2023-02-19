@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.core.presentation.view.base.BaseActivityMVVM
 import com.example.data.AppStateMVVM
 import com.example.data.DataModelMVVM
@@ -17,10 +18,15 @@ import com.example.dictionary.mvvm.presentation.view.history.HistoryFragment
 import com.example.dictionary.mvvm.presentation.view.history.SeacrhInHistoryDialogFragment
 import com.example.dictionary.mvvm.presentation.viewModel.MainViewModel
 import com.example.dictionary.mvvm.presentation.viewModel.adapter.MainAdapterMVVM
+import com.example.dictionary.mvvm.utils.viewById
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.getKoin
 import org.koin.core.qualifier.named
 
 class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
+
+    private val mainActivityRecyclerView by viewById<RecyclerView>(R.id.main_activity_recyclerview)
+    private val searchFab by viewById<FloatingActionButton>(R.id.search_fab)
 
     private val scopeActivity by lazy {
         getKoin().createScope("mainActivityId", named<MainActivityMVVM>())
@@ -190,15 +196,12 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
     }
 
     private fun initViews() {
-        binding.apply {
-            searchFab.setOnClickListener(fabClickListener)
-            mainActivityRecyclerview.layoutManager = LinearLayoutManager(applicationContext)
-            mainActivityRecyclerview.adapter = adapter
-        }
+        searchFab.setOnClickListener(fabClickListener)
+        mainActivityRecyclerView.adapter = adapter
     }
 
     private fun initViewModel() {
-        if (binding.mainActivityRecyclerview.adapter != null) {
+        if (mainActivityRecyclerView.adapter != null) {
             throw IllegalStateException("ViewModel not initialised")
         }
         val viewModel: MainViewModel by scopeActivity.inject()
