@@ -93,4 +93,5 @@ dependencies {
     implementation(Deps.LIFECYCLE_VIEWMODEL_DEP)
     implementation(project(":data"))
     implementation(project(":core"))
+
 }

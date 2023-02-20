@@ -17,4 +17,10 @@
     <string name="empty_data_header">database is empty</string>
     <string name="searched_words">История поиска слов</string>
     <string name="history_words">Значения запросов</string>
+    <string name="dialog_message_device_is_offline">Нет соединения с сетью</string>
+    <string name="dialog_title_device_is_offline">Нет сети</string>
+    <string name="dialog_message_device_is_online">В сети</string>
+    <string name="item_message_device_is_offline">Нет соединения с сетью. Ожидание подклчения.</string>
+    <string name="Network_offline_header">Нет соединения с сетью</string>
+    <string name="Network_offline_description">Ожидаем подключения для отображения результатов</string>
 </resources>
