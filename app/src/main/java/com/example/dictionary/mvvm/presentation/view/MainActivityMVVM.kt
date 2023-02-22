@@ -1,5 +1,7 @@
 package com.example.dictionary.mvvm.presentation.view
 
+import android.animation.ObjectAnimator
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -7,8 +9,9 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
-import androidx.appcompat.widget.AlertDialogLayout
-import androidx.lifecycle.Observer
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.presentation.view.base.BaseActivityMVVM
@@ -107,11 +110,33 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        splashScreenStart()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViewModel()
         initViews()
         subscribeToNetworkChange()
+    }
+
+    private fun splashScreenStart() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val splashScreen = installSplashScreen()
+            splashScreen.setOnExitAnimationListener { splashScreenProvider ->
+                ObjectAnimator.ofFloat(
+                    splashScreenProvider.view,
+                    View.TRANSLATION_Y,
+                    0f,
+                    -splashScreenProvider.view.height.toFloat()
+                ).apply {
+                    duration = 1000
+                    interpolator = FastOutLinearInInterpolator()
+                    doOnEnd {
+                        splashScreenProvider.remove()
+                    }
+                }.start()
+            }
+        }
     }
 
     override fun renderData(appStateMVVM: AppStateMVVM) {
@@ -208,7 +233,7 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
     private fun subscribeToNetworkChange() {
         OnlineLiveData(this).observe(
             this@MainActivityMVVM,
-            Observer<Boolean> {
+            {
                 isNetworkAvailable = it
                 if (!isNetworkAvailable) {
                     Toast.makeText(
@@ -231,7 +256,7 @@ class MainActivityMVVM : BaseActivityMVVM<AppStateMVVM>() {
     private fun showMeaningsOrError(data: DataModelMVVM) {
         OnlineLiveData(this).observe(
             this@MainActivityMVVM,
-            Observer<Boolean> {
+            {
                 isNetworkAvailable = it
                 if (!isNetworkAvailable) {
                     val dialog = AlertDialogFragment()
