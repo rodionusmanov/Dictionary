@@ -93,5 +93,5 @@ dependencies {
     implementation(Deps.LIFECYCLE_VIEWMODEL_DEP)
     implementation(project(":data"))
     implementation(project(":core"))
-
+    implementation("androidx.core:core-splashscreen:1.0.0")
 }
