@@ -16,7 +16,7 @@ object Deps {
     object Modules {
         const val app = ":app"
         const val core = ":core"
-        const val model = ":model"
+        const val data = ":data"
         const val repository = ":repository"
         const val utils = ":utils"
 
@@ -51,9 +51,9 @@ object Deps {
     private const val RETROFIT_COROUTINES_ADAPTER_VERSION = "0.9.2"
 
     //Room
-    private const val ROOM_RUNTIME_VERSION = "2.3.0"
-    private const val ROOM_COMPILER_VERSION = "2.3.0"
-    private const val ROOM_KTX_VERSION = "2.3.0"
+    private const val ROOM_RUNTIME_VERSION = "2.2.4"
+    private const val ROOM_COMPILER_VERSION = "2.2.4"
+    private const val ROOM_KTX_VERSION = "2.2.4"
 
     //Coil
     private const val COIL_VERSION = "1.0.0"
